@@ -1,12 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:usersmultivendor/firebase_options.dart';
 import 'package:usersmultivendor/global.dart';
 import 'package:usersmultivendor/views/splashScreen/splash_screen.dart';
 
-import 'views/homeScreen/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

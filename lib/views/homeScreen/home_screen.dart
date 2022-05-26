@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:usersmultivendor/models/sellers.dart';
 import 'package:usersmultivendor/views/shared/app_drawer.dart';
-
+import 'package:usersmultivendor/views/shared/info_design.dart';
 import '../../global.dart';
-import '../auth/auth_screen.dart';
 import '../shared/app_gradient.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -100,7 +102,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-          )
+          ),
+          StreamBuilder<QuerySnapshot>(
+            stream:
+                FirebaseFirestore.instance.collection("sellers").snapshots(),
+            builder: (context, snapshot) {
+              return !snapshot.hasData
+                  ? const SliverToBoxAdapter(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : SliverFixedExtentList(
+                      itemExtent: 3,
+                      delegate: SliverChildBuilderDelegate(
+                          childCount: snapshot.data!.docs.length,
+                          (context, index) {
+                        Sellers sModel = Sellers.fromJson(
+                          snapshot.data!.docs[index].data()!
+                              as Map<String, dynamic>,
+                        );
+                        return InfoDesignWidget(
+                          model: sModel,
+                        );
+                      }));
+            },
+          ),
         ],
       ),
     );

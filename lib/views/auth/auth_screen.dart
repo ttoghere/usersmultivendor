@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:usersmultivendor/views/shared/app_drawer.dart';
-
 import '../shared/app_gradient.dart';
 import 'widgets/login.dart';
 import 'widgets/sign_up.dart';
